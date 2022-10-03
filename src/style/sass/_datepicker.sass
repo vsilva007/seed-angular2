@@ -1,0 +1,261 @@
+@import "variables"
+$blue: blue
+$black: #fa5252
+$white: white
+$gray: #ced4da
+$gray-dark: #343a40
+$red: #fa5252
+$container-color: white
+$lightgray: #bbb
+
+=unselectable
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+.datepicker-container
+  width: 100% //custom
+
+  .datepicker-input-container
+    width: 100% //custom
+
+    .datepicker-input
+      text-align: left !important
+      cursor: pointer !important
+      display: block !important
+      width: 100% !important
+      height: 34px !important
+      padding: 6px 45px !important
+      font-size: 14px !important
+      line-height: 1.42857 !important
+      color: #555555 !important
+      background-color: #fff !important
+      background-image: none !important
+      border: 1px solid #ccc !important
+      border-radius: 0 !important
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important
+      -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s !important
+      transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s !important
+      &::-webkit-input-placeholder
+        color: $gray-dark
+      &::-moz-placeholder
+        color: $gray-dark
+      &:-ms-input-placeholder
+        color: $gray-dark
+      &:-moz-placeholder
+        color: $gray-dark
+
+    .datepicker-input-icon
+      position: absolute
+      left: 0
+      top: 0
+      padding: 4px 8px
+      margin: 4px 0
+      border-right: 1px solid #ccc
+      i
+        cursor: pointer
+
+        svg
+          width: 18px !important
+          height: 18px !important
+          g
+            g
+              fill: $lightgray !important
+
+  .datepicker-calendar
+    +unselectable
+    width: 250px
+    top: 34px !important
+    position: absolute
+    z-index: 99
+    background: $white
+    border-bottom-left-radius: 4px
+    border-bottom-right-radius: 4px
+    box-shadow: 0 2px 5px rgba($black, 0.5)
+
+    .datepicker-calendar-top
+      width: 100%
+      height: 80px
+      background: $gentelella-green !important
+      display: inline-block
+      position: relative
+
+      .year-title
+        display: block
+        margin-top: 12px
+        color: $white
+        font-size: 28px
+        text-align: center
+
+      button
+        width: 150px
+        display: block
+        margin: 0 auto
+        color: $white
+        text-transform: uppercase
+        background: transparent
+        border: none
+        outline: none
+        font-size: 12px
+        cursor: pointer
+        position: relative
+
+        svg
+          display: block
+          float: left
+          width: 15px
+          height: 15px
+          position: absolute
+          top: 2px
+          left: 12px
+          g
+            fill: $white
+            path
+              fill: $white
+
+      .close
+        position: absolute
+        top: 5px
+        right: 5px
+        font-size: 20px
+        color: $white
+        cursor: pointer
+
+        svg
+          width: 12px
+          height: 12px
+          g
+            path
+              fill: $white
+
+    .datepicker-calendar-container
+      display: inline-block
+      width: 100%
+      padding: 10px
+      background: $container-color !important
+
+      .datepicker-calendar-month-section
+        width: 100%
+        display: flex
+        justify-content: space-between
+        font-size: 14px
+        color: $gentelella-green !important
+        text-transform: uppercase
+        i
+          cursor: pointer
+          color: $gentelella-green !important
+          &:first-child
+            margin-left: 12px
+          &:last-child
+            margin-right: 12px
+
+      .datepicker-calendar-day-names
+        width: 230px
+        margin-top: 10px
+        display: inline-block
+        border: 1px solid transparent
+
+        span
+          font-size: 12px
+          display: block
+          float: left
+          width: calc(100% / 7)
+          text-align: center
+
+      .datepicker-calendar-days-container
+        width: 230px
+        margin-top: 5px
+        display: inline-block
+        border: 1px solid transparent
+
+        .day
+          display: flex
+          justify-content: center
+          align-items: center
+          float: left
+          font-size: 14px
+          color: #8E8E8E
+          width: calc(100% / 7)
+          height: 33px
+          text-align: center
+          border-radius: 50%
+          cursor: pointer
+          &:hover:not(.disabled), &.selected
+            background: $container-color !important
+            border: 1px solid #366AAB
+            border-radius: 4px
+          &.disabled
+            pointer-events: none
+          &.today
+            color: #366AAB
+
+      .datepicker-calendar-years-container
+        width: 100%
+        height: 240px
+        //overflow-y: auto !important
+        .year
+          display: flex
+          justify-content: center
+          align-items: center
+          float: left
+          font-size: 14px
+          color: #8E8E8E
+          width: calc(100% / 4)
+          height: 50px
+          text-align: center
+          border-radius: 50%
+          cursor: pointer
+          &:hover, &.selected
+            background: $container-color !important
+            border: 1px solid #366AAB
+            border-radius: 4px
+
+      .datepicker-buttons
+        width: 235px
+        display: flex
+        justify-content: center
+
+        button
+          width: 100%
+          outline: none
+          display: inline-block
+          border: 1px solid $blue
+          background: #099268
+          color: $white
+          margin-right: 5px
+          border-radius: 5px
+          cursor: pointer
+          text-align: center
+          padding: 5px 10px
+          border: 1px solid $gentelella-green !important
+          border-radius: 4px
+
+          &.u-is-primary
+            background: $container-color !important
+            color: $gentelella-green !important
+            &:active
+              background: $container-color !important
+              color: $gentelella-green !important
+            &:hover
+              background: $gentelella-green !important
+              color: white !important
+
+          &.u-is-secondary
+            background: $container-color !important
+            color: $gentelella-green !important
+            &:active
+              background: $container-color !important
+              color: $gentelella-green !important
+            &:hover
+              background: $gentelella-green !important
+              color: white !important
+  svg
+    display: block
+    width: 20px
+    height: 20px
+    g
+      fill: $gentelella-green !important
+      g
+        fill: $gentelella-green !important

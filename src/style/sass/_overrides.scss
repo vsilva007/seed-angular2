@@ -1,0 +1,70 @@
+@import "variables";
+// DatePicker Override
+@import 'datepicker';
+
+// Tags Override
+.ng2-tag-input {
+  min-height: $container-height;
+}
+.ng2-tag-input--focused {
+  border: 1px solid $color-tag-input;
+}
+.custom-disabled{
+  .ng2-tag-input.custom{
+    background-color: #eeeeee;
+    border: 1px solid #ccc;
+    cursor: not-allowed;
+  }
+}
+// Tags Custom theme
+.ng2-tag-input.custom {
+  color: $color-text-input;
+  border: 1px solid $color-tag-input;
+  tag {
+    background-color: $color-background-tag;
+    color: $color-tag !important;
+  }
+}
+// Tags LegalName theme
+.ng2-tag-input.square-custom {
+  color: $color-text-input;
+  border: 1px solid $color-tag-input;
+  tag {
+    border-radius: 0;
+    background-color: $color-background-tag;
+    color: white !important;
+  }
+}
+//Tags Error theme
+.error-tags{
+  .ng2-tag-input{
+    background-color: #FAEDEC !important;
+    border: 1px solid red !important;
+    .ng2-tags-container{
+      tag-input-form {
+        form {
+          input {
+            background-color: #FAEDEC !important;
+          }
+        }
+      }
+    }
+  }
+}
+// toggle
+.below{
+  .toggle{
+    padding-top: 0;
+  }
+}
+
+// select
+select-dropdown > div{
+  z-index: 10 !important;
+}
+
+//Notification
+.simple-notification.success { background: $gentelella-green !important; }
+.simple-notification.error { background: $gentelella-red !important;; }
+.simple-notification.success .sn-progress-loader span { background: darken($gentelella-green, 10%) !important;; }
+.simple-notification.error .sn-progress-loader span { background: darken($gentelella-red, 10%) !important;; }

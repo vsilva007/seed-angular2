@@ -1,0 +1,52 @@
+<div class="custom-dropdown">
+  <div class="dropdown-custom-toggle" (click)="toggleDropdown()">
+    <div class="toggle-info">
+      <div class="value">
+        {{ title }}
+      </div>
+      <div *ngIf="false" class="clear">
+        x
+      </div>
+      <div class="toggle">
+        ▼
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isVisible" class="dropdown-custom-menu" style="display: block; height: auto; overflow-y: auto; width: 100%;">
+    <div class="dropdown-item" *ngIf="settings.enableSearch" class="search">
+      <input type="text" placeholder="{{ texts.searchPlaceholder }}" [(ngModel)]="searchFilterText">
+    </div>
+    <div class="buttons row">
+      <div class="col-xs-6" *ngIf="settings.showCheckAll">
+        <a href="javascript:;" role="menuitem" tabindex="-1" (click)="checkAll()">
+          <span style="width: 16px;" class="glyphicon glyphicon-ok"></span>
+          {{ texts.checkAll }}
+        </a>
+      </div>
+      <div class="col-xs-6" *ngIf="settings.showUncheckAll">
+        <a href="javascript:;" role="menuitem" tabindex="-1" (click)="uncheckAll()">
+          <span style="width: 16px;" class="glyphicon glyphicon-remove"></span>
+          {{ texts.uncheckAll }}
+        </a>
+      </div>
+    </div>
+    <div class="options">
+      <ul *ngFor="let option of options | searchFilter:searchFilterText"
+          (click)="(option.isLabel) ? setSelectedParent($event, option) : setSelected($event, option)">
+        <li *ngIf="option.isLabel" class="group-header">
+          <i class="fa fa-circle-thin" aria-hidden="true"></i>
+          {{ option.name }}
+        </li>
+        <li *ngIf="!option.isLabel" href="javascript:;" role="menuitem" tabindex="-1" style="padding-left: 30px">
+          <input *ngIf="settings.checkedStyle === 'checkboxes'" type="checkbox" [checked]="isSelected(option)" (click)="preventCheckboxCheck($event, option)" />
+          <span *ngIf="settings.checkedStyle === 'glyphicon'" style="width: 16px;"
+                class="glyphicon" [class.glyphicon-ok]="isSelected(option)"></span>
+          <span *ngIf="settings.checkedStyle === 'fontawesome'" style="width: 16px;display: inline-block;">
+            <i *ngIf="isSelected(option)" class="fa fa-check" aria-hidden="true"></i>
+          </span>
+          {{ option.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

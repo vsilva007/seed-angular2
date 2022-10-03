@@ -1,0 +1,40 @@
+<div bsModal #addPeopleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add People</h4>
+        <button type="button" class="close pull-right" (click)="addPeopleModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addPeopleForm="ngForm" [formGroup]="formGroup" (ngSubmit)="submitFormGroup()">
+          <div class="row">
+            <div class="form-group">
+              <label>New people</label>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group">
+                  <input  ng2-auto-complete
+                          formControlName="people"
+                          [source]="observableSource.bind(this)"
+                          [list-formatter]="autocompleListFormatter"
+                          value-property-name="id"
+                          display-property-name="name"
+                          placeholder=""
+                          class="form-control">
+                  <span class="input-group-btn">
+                    <button type="submit" [disabled]="!formGroup.valid" class="btn btn-success">Add People</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-submit" (click)="addPeopleModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-success" [routerLink]="'/companies/' + companyId + '/people/new'">Create New People</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<page-header [title]="'Create new people'" *ngIf="actionToPerform == 'create'"></page-header>
+<page-header [title]="'Update people'" *ngIf="actionToPerform == 'update'"></page-header>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div data-parsley-validate class="form-horizontal form-label-left">
+        <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+          <div class="x_title">
+            <h2> Basic Information </h2>
+            <ul class="nav navbar-right panel_toolbox"></ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="row">
+              <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                <label for="title">Title <span class="required">*</span></label>
+                <select id="title" formControlName="title" class="form-control" [ngClass]="{'parsley-error': formGroup.controls.title.errors?.required && errors.title.error}">
+                  <option *ngFor="let option of getpeopleTitles() | enumKeys" [value]="option.value">{{option.value}}</option>
+                </select>
+                <span class="help-error-block" [hidden]="errors.title.error">{{errors.title.errorTag}}</span>
+              </div>
+              <div class="col-md-5 col-sm-12 col-xs-12 form-group has-feedback">
+                <label for="first-name">First Name <span class="required">*</span></label>
+                <input id="first-name" type="text" style="margin: 0;" class="form-control has-feedback-left" formControlName="name" placeholder="Name" [ngClass]="{'parsley-error': errors.name.error}" />
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                <span class="help-error-block" [hidden]="errors.name.error">{{errors.name.errorTag}}</span>
+              </div>
+              <div class="col-md-5 col-sm-12 col-xs-12 form-group has-feedback">
+                <label for="last-name">Last Name <span class="required">*</span></label>
+                <input id="last-name" type="text" style="margin: 0;" class="form-control has-feedback-left" formControlName="surnames" placeholder="Surnames" [ngClass]="{'parsley-error': errors.surnames.error}" />
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                <span class="help-error-block" [hidden]="errors.surnames.error">{{errors.surnames.errorTag}}</span>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                <label for="city">City <span class="required">*</span></label>
+                <input id="city" type="text" style="margin: 0;" class="form-control" formControlName="city" placeholder="City" [ngClass]="{'parsley-error': errors.city.error}" />
+                <span class="help-error-block" [hidden]="errors.city.error">{{errors.city.errorTag}}</span>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                <label for="country">Country <span class="required">*</span></label>
+                <select id="country" formControlName="country" class="form-control" [ngClass]="{'parsley-error': errors.country.error}">
+                  <option *ngFor="let option of countries" [ngValue]="option">{{option.name}}</option>
+                </select>
+                <span class="help-error-block" [hidden]="errors.country.error">{{errors.country.errorTag}}</span>
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                <label for="address">Address <span class="required">*</span>
+                </label>
+                <input id="address" type="text" style="margin: 0;" class="form-control" formControlName="address" placeholder="Address" [ngClass]="{'parsley-error': errors.address.error}" />
+                <span class="help-error-block" [hidden]="errors.address.error">{{errors.address.errorTag}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="x_title">
+            <h2>Social</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                <label>LinkedIn</label>
+                <input type="text" class="form-control has-feedback-left" id="linkedin"  formControlName="linkedInLink" placeholder="www.linkedin.com/" [ngClass]="{'parsley-error': formGroup.controls.linkedInLink.errors?.url && errors.linkedInLink.error}">
+                <span class="fa fa-linkedin form-control-feedback left" aria-hidden="true"></span>
+                <span class="help-error-block" *ngIf="formGroup.controls.linkedInLink.errors?.url && errors.linkedInLink.error">{{errors.linkedInLink.label}} must be a valid url.</span>
+              </div>
+
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                <label>Facebook</label>
+                <input type="text" class="form-control  has-feedback-left" id="facebook-link" formControlName="facebookLink" placeholder="www.facebook.com/" [ngClass]="{'parsley-error': formGroup.controls.facebookLink.errors?.url && errors.facebookLink.error}">
+                <span class="fa fa-facebook form-control-feedback left" aria-hidden="true"></span>
+                <span class="help-error-block" *ngIf="formGroup.controls.facebookLink.errors?.url && errors.facebookLink.error">{{errors.facebookLink.label}} must be a valid url.</span>
+              </div>
+
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                <label>Twitter</label>
+                <input type="text" class="form-control has-feedback-left" id="twitter-link"  formControlName="twitterLink" placeholder="www.twitter.com/" [ngClass]="{'parsley-error': formGroup.controls.twitterLink.errors?.url && errors.twitterLink.error}">
+                <span class="fa fa-twitter form-control-feedback left" aria-hidden="true"></span>
+                <span class="help-error-block" *ngIf="formGroup.controls.twitterLink.errors?.url && errors.twitterLink.error">{{errors.twitterLink.label}} must be a valid url.</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <br>
+
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+              <button type="button" class="btn btn-primary submit" *ngIf="actionToPerform == 'update'" (click)="resetUpdateForm()">Reset</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'create'">Add people</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'update'">Update people</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <employment-list *ngIf="actionToPerform == 'update'" [peopleId]="peopleId"></employment-list>
+    <page-header *ngIf="actionToPerform == 'update'" [title]="'Attended Conferences'" [actionButton]="{label: 'Add Attended Conference', action: true}" (onAction)="showAddAttendedConferenceModal()"></page-header>
+    <conference-list *ngIf="actionToPerform == 'update'" [peopleId]="peopleId" [inputEvents]="conferenceListEvent"></conference-list>
+    <add-attended-conference-modal #addAttendedConferenceModal [peopleId]="peopleId" (outputEvent)="reloadSubList($event)"></add-attended-conference-modal>
+  </div>
+</div>

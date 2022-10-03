@@ -1,0 +1,41 @@
+
+<div>
+  <a class="hiddenanchor" id="signup"></a>
+  <a class="hiddenanchor" id="signin"></a>
+
+  <div class="login_wrapper">
+    <div class="animate form login_form">
+      <section class="login_content">
+        <form [formGroup]="loginUser" class="parsleyjs" data-parsley-priority-enabled="false" novalidate="novalidate" (ngSubmit)="submitLogin()">
+          <h1>Login</h1>
+          <div class="form-group" style="margin: 0 0 20px;">
+            <input type="text" style="margin: 0;" class="form-control" formControlName="username" placeholder="Username" [ngClass]="{'parsley-error': errors.username.error}" />
+            <span class="help-error-block" [hidden]="errors.username.error">{{errors.username.errorTag}}</span>
+          </div>
+          <div class="form-group" style="margin: 0 0 20px;">
+            <input type="password" style="margin: 0;" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{'parsley-error': errors.password.error}" />
+            <span class="help-error-block" [hidden]="errors.password.error">{{errors.password.errorTag}}</span>
+          </div>
+          <server-exception [error]="serverError" *ngIf="serverError"></server-exception>
+          <div>
+            <button type="submit" class="btn btn-default submit">Entrar</button>
+            <!--<a class="reset_pass" href="#">Lost your password?</a>-->
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="separator">
+
+            <div class="clearfix"></div>
+            <br />
+
+            <div>
+              <h1><i class="fa fa-database"></i> Seed</h1>
+              <p>©2017 All Rights Reserved. Privacy and Terms</p>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

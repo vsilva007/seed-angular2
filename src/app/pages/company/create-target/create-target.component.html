@@ -1,0 +1,5 @@
+<page-header *ngIf="hasTitle" [title]="'Lista de contactos para esta campaña'" [actionButton]="{label: 'Crear lista de contactos', route: '/contact-list/new'}"></page-header>
+<basic-table [settings]="getSettings()" [source]="getContactListByCampaing()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>
+
+<page-header *ngIf="hasTitle" [title]="'Selecciona otra lista'" [actionButton]="{label: 'Crear lista de contactos', route: '/contact-list/new'}"></page-header>
+<basic-table [settings]="getSettings()" [source]="getContactList()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>

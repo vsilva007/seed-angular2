@@ -1,0 +1,20 @@
+.page-title{
+  float: left;
+  height: auto;
+  .title_left{
+    h3{
+      margin: 0;
+      line-height: 34px;
+    }
+
+  }
+  .title_right{
+    .btn{
+      margin-top: 0;
+      margin-bottom: 0;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+}

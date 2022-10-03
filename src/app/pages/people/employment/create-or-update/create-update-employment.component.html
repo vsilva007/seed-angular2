@@ -1,0 +1,133 @@
+<page-header [title]="'Create new employment'" *ngIf="actionToPerform == 'create'"></page-header>
+<page-header [title]="'Update employment'" *ngIf="actionToPerform == 'update'"></page-header>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Employment data</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <br />
+        <form class="form-horizontal form-label-left" [formGroup]="formGroup" (ngSubmit)="submitFormGroup()">
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Final Position</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input formControlName="finalPosition" type="text" class="form-control" placeholder="" [ngClass]="{'parsley-error': formGroup.controls.finalPosition.errors?.required && errors.finalPosition.error}">
+              <span class="help-error-block" *ngIf="formGroup.controls.finalPosition.errors?.required && errors.finalPosition.error">{{errors.finalPosition.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Final Position Noah</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input formControlName="finalPositionNoah" type="text" class="form-control" placeholder="" [value]="formGroup.controls.functionalArea.value + ' / ' + formGroup.controls.seniority.value" readonly/>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Functional Area</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input formControlName="functionalArea" type="text" class="form-control" placeholder="" [ngClass]="{'parsley-error': formGroup.controls.functionalArea.errors?.required && errors.functionalArea.error}">
+              <span class="help-error-block" *ngIf="formGroup.controls.functionalArea.errors?.required && errors.functionalArea.error">{{errors.functionalArea.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Seniority</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <select id="seniority" formControlName="seniority" class="form-control" [ngClass]="{'parsley-error': formGroup.controls.seniority.errors?.required && errors.seniority.error}">
+                <option *ngFor="let option of getSeniorityEnum() | enumKeys" [value]="option.value">{{option.value}}</option>
+              </select>
+              <span class="help-error-block" *ngIf="formGroup.controls.seniority.errors?.required && errors.seniority.error">{{errors.seniority.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Company</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <div class="input-group">
+                <input  ng2-auto-complete
+                        formControlName="company"
+                        [source]="observableSource.bind(this)"
+                        [list-formatter]="autocompleListFormatter"
+                        value-property-name="id"
+                        display-property-name="legalName"
+                        placeholder=""
+                        class="form-control"
+                        [ngClass]="{'parsley-error': errors.company.error}" >
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary" (click)="showAddCompanyModal()">Add new</button>
+                </span>
+              </div>
+              <span class="help-error-block" *ngIf="errors.company.error">{{errors.company.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Founder</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ui-switch formControlName="founder"></ui-switch>
+              <span class="help-error-block" *ngIf="formGroup.controls.founder.errors?.required && errors.founder.error">{{errors.founder.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Shareholder</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ui-switch formControlName="shareholder"></ui-switch>
+              <span class="help-error-block" *ngIf="formGroup.controls.shareholder.errors?.required && errors.shareholder.error">{{errors.shareholder.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Board Role</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ui-switch formControlName="boardRole"></ui-switch>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ng2-datepicker [options]="pickerOptions" [inputEvents]="pickerEvent.start" formControlName="startDate"></ng2-datepicker>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Current</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ui-switch (change)="onCurrentChange($event)" formControlName="current"></ui-switch>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="!formGroup.controls.current.value">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">End Date</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ng2-datepicker [options]="pickerOptions" [inputEvents]="pickerEvent.end" formControlName="endDate"></ng2-datepicker>
+              <span class="help-error-block" *ngIf="errors.endDate.error">{{errors.endDate.errorTag}}</span>
+            </div>
+          </div>
+
+
+          <div class="ln_solid"></div>
+
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+              <button type="button" class="btn btn-primary submit" *ngIf="actionToPerform == 'update'" (click)="resetUpdateForm()">Reset</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'create'">Add Employment</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'update'">Update Employment</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<add-company-modal #addCompanyComponent (onSave)="setCompany($event)"></add-company-modal>
+
+

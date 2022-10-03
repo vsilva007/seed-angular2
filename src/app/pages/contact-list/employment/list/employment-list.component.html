@@ -1,0 +1,2 @@
+<page-header [title]="'Lista de contactos'" [actionButton]="{label: 'Crear contacto', route: '/contact-list/' + contactListId + '/contact/new'}"></page-header>
+<basic-table [settings]="getSettings()" [source]="getEmployments()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>

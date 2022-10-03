@@ -1,0 +1,2 @@
+<page-header [title]="'Office'" [actionButton]="{label: 'Add Office', route: '/companies/' + companyId + '/office/new'}"></page-header>
+<basic-table [settings]="getSettings()" [source]="getOffices()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>

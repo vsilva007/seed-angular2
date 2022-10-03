@@ -1,0 +1,2 @@
+<page-header [title]="'Campañas de marketing'" [actionButton]="{label: 'Crear Campaña', route: '/campaings/new'}"></page-header>
+<basic-table [settings]="settings" [source]="companies" (deletedConfirmed)="deleteCompany($event)" (updateData)="updateCompaniesList($event)"></basic-table>

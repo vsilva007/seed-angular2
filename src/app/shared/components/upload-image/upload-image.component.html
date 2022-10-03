@@ -1,0 +1,66 @@
+<div class="upload-image-container {{imgType}}">
+
+  <div class="original-img" [style.backgroundImage]="'url(' + originalImg + ')'"></div>
+
+  <button type="button" class="btn btn-primary button-open-modal"  (click)="showChildModal()">Cargar imagen</button>
+  <div bsModal #uploadImageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog upload-image">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Cargar imagen</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+
+          <div>
+            <div class="image-container">
+              <div class="image" [style.backgroundImage]="'url(' + previewData + ')'">
+                <div ngFileDrop
+                     [options]="options"
+                     [events]="inputUploadEvents"
+                     (onUpload)="handleUpload($event)"
+                     [ngClass]="{'file-over': hasBaseDropZoneOver}"
+                     (onFileOver)="fileOverBase($event)"
+                     (onPreviewData)="handlePreviewData($event)"
+                     (beforeUpload)="beforeUpload($event)" class="ng-file-drop">
+                </div>
+
+              </div>
+            </div>
+            <div class="button-container">
+              <label class="btn btn-default upload-button">
+                <input type="file" class="hidden"
+                       ngFileSelect
+                       [options]="options"
+                       [events]="inputUploadEvents"
+                       (onUpload)="handleUpload($event)"
+                       (onPreviewData)="handlePreviewData($event)"
+                       (beforeUpload)="beforeUpload($event)">
+                Browse
+              </label>
+              <button type="button" class="btn btn-success start-upload-button" (click)="startUpload()" *ngIf="newImageSelected && !progress">Start Upload</button>
+              <progressbar class="progress-striped active" value="{{progress}}" type="success" *ngIf="progress">{{progress}}%</progressbar>
+            </div>
+
+            <div *ngIf="errorMessage">
+              <code>{{ errorMessage }}</code>
+            </div>
+
+          </div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

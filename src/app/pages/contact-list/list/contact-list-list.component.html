@@ -1,0 +1,3 @@
+<page-header *ngIf="hasTitle" [title]="'Lista de Contactos'" [actionButton]="{label: 'Crear lista de contactos', route: '/contact-list/new'}"></page-header>
+<basic-table [settings]="getSettings()" [source]="getContactList()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>
+

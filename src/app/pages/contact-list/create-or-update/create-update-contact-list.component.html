@@ -1,0 +1,105 @@
+<page-header [title]="'Crear nueva lista de contactos'" *ngIf="actionToPerform == 'create'"></page-header>
+<page-header [title]="'Actualizar lista de contactos'" *ngIf="actionToPerform == 'update'"></page-header>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div data-parsley-validate class="form-horizontal form-label-left">
+        <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+          <div class="x_title">
+            <h2> Información básica </h2>
+            <ul class="nav navbar-right panel_toolbox"></ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                <label for="name">Introduce un nombre para esta lista<span class="required">*</span></label>
+                <input id="name" type="text" style="margin: 0;" class="form-control" formControlName="name" placeholder="Nombre" [ngClass]="{'parsley-error': errors.name.error}" />
+                <span class="help-error-block" [hidden]="errors.name.error">{{errors.name.errorTag}}</span>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                <label for="country">Puedes seleccionar el tipo de lista </label>
+                <select id="country" formControlName="country" class="form-control" [ngClass]="{'parsley-error': errors.country.error}">
+                  <option *ngFor="let option of countries" [ngValue]="option">{{option.name}}</option>
+                </select>
+                <span class="help-error-block" [hidden]="errors.name.error">{{errors.name.errorTag}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="x_title" *ngIf="actionToPerform == 'create'">
+            <h2>Configura los campos de tu lista</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content" *ngIf="actionToPerform == 'create'">
+            <div class="row">
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Selecciona <small>puedes añadir y ordenar</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th><th>Activo</th><th>Nombre del campo</th><th>Permitir duplicados</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th> <td><ui-switch formControlName="serviceProvider"></ui-switch></td> <td>Nombre</td> <td><ui-switch formControlName="serviceProvider"></ui-switch></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">1</th> <td><ui-switch formControlName="serviceProvider"></ui-switch></td> <td>Email</td> <td><ui-switch formControlName="serviceProvider"></ui-switch></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">1</th> <td><ui-switch formControlName="serviceProvider"></ui-switch></td> <td>Teléfono</td> <td><ui-switch formControlName="serviceProvider"></ui-switch></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">1</th> <td><ui-switch formControlName="serviceProvider"></ui-switch></td> <td>Nombre</td> <td><ui-switch formControlName="serviceProvider"></ui-switch></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <br>
+
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+              <button type="button" class="btn btn-primary submit" *ngIf="actionToPerform == 'update'" (click)="resetUpdateForm()">Reset</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'create'">Crear lista de contactos</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'update'">Actualizar lista de contactos</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <people-contact-list *ngIf="actionToPerform == 'update'" [contactListId]="contactListId"></people-contact-list>
+    <!--<page-header *ngIf="actionToPerform == 'update'" [title]="'Attended Conferences'" [actionButton]="{label: 'Add Attended Conference', action: true}" (onAction)="showAddAttendedConferenceModal()"></page-header>-->
+    <!--<conference-list *ngIf="actionToPerform == 'update'" [peopleId]="contactListId" [inputEvents]="conferenceListEvent"></conference-list>-->
+    <add-attended-conference-modal #addAttendedConferenceModal [peopleId]="contactListId" (outputEvent)="reloadSubList($event)"></add-attended-conference-modal>
+  </div>
+</div>

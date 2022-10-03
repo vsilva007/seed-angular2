@@ -1,0 +1,8 @@
+.form-group{
+  label {
+    + ui-switch {
+      width: 100%;
+      float: left;
+    }
+  }
+}

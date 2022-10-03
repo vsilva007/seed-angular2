@@ -1,0 +1,2 @@
+<page-header [title]="'Employment'" [actionButton]="{label: 'Add Employment', route: '/people/' + contactListId + '/employment/new'}"></page-header>
+<basic-table [settings]="getSettings()" [source]="getEmployments()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>

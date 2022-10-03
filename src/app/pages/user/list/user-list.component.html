@@ -1,0 +1,2 @@
+<page-header [title]="'Users'" [actionButton]="{label: 'Add user', route: '/users/new'}"></page-header>
+<basic-table [settings]="settings" [source]="users" (deletedConfirmed)="deleteUser($event)"></basic-table>

@@ -1,0 +1,3 @@
+<page-header *ngIf="hasTitle" [title]="'People'" [actionButton]="{label: 'Add People', route: '/companies/' + companyId + '/people/new'}"></page-header>
+<basic-table [settings]="getSettings()" [source]="getPeople()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>
+

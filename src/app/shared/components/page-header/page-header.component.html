@@ -1,0 +1,13 @@
+<div class="page-title">
+  <div class="title_left">
+    <h3>
+      <!--<a style="cursor: pointer; padding: 0 5px;" (click)="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>-->
+      {{title}}</h3>
+  </div>
+  <div class="title_right" *ngIf="actionButton && actionButton.route">
+      <a [routerLink]="[actionButton.route]" class="btn btn-success btn-md pull-right">{{actionButton.label}}</a>
+  </div>
+  <div class="title_right" *ngIf="actionButton && actionButton.action">
+      <a (click)="sendAction()" class="btn btn-success btn-md pull-right">{{actionButton.label}}</a>
+  </div>
+</div>

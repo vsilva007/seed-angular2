@@ -1,0 +1,41 @@
+<!--<a class="btn btn-primary" (click)="addCompanyModal.show()">Add Company</a>-->
+
+<div bsModal #addCompanyModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Company</h4>
+        <button type="button" class="close pull-right" (click)="addCompanyModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addFastCompany="ngForm" [formGroup]="formGroup" (ngSubmit)="submitFormGroup()">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+              <label>NOAH Company Name</label>
+              <input type="text" class="form-control has-feedback-left" id="abbreviation-name"  formControlName="abbreviationName" placeholder="NOAH Company Name" [ngClass]="{'parsley-error': formGroup.controls.abbreviationName.errors?.required && errors.abbreviationName.error}">
+              <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+              <span class="help-error-block" *ngIf="formGroup.controls.abbreviationName.errors?.required && errors.abbreviationName.error">{{errors.abbreviationName.errorTag}}</span>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+              <label>Industry</label>
+              <ng-select #currentIndustries [options]="contactList"
+                         [multiple]="false"
+                         placeholder="Industry"
+                         formControlName="industry"
+                         [allowClear]="true">
+              </ng-select>
+              <!--<span class="help-error-block" *ngIf="formGroup.controls.industry.errors?.required && errors.industry.error">{{errors.industry.errorTag}}</span>-->
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-submit" (click)="addCompanyModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="addFastCompany.onSubmit()">Add Company</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="col-md-3 left_col menu_fixed">
+  <div class="left_col scroll-view">
+    <div class="navbar nav_title" style="border: 0;">
+      <a [routerLink]="['/home']" class="site_title"><i class="fa fa-database"></i> <span>Seed</span></a>
+    </div>
+    <div class="clearfix"></div>
+
+    <!-- menu profile quick info -->
+    <div class="profile clearfix">
+      <div class="profile_pic">
+        <img src="assets/img/default-user.jpg" alt="..." class="img-circle profile_img">
+      </div>
+      <div class="profile_info">
+        <span>Bienvenido,</span>
+        <h2>{{user.name}}</h2>
+      </div>
+    </div>
+    <!-- /menu profile quick info -->
+
+    <br />
+
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+      <div class="menu_section">
+        <h3>Menú</h3>
+        <ul class="nav side-menu">
+          <li>
+            <a id="listsli" [routerLink]="['/contact-list']">
+              <i class="fa fa-users"></i>
+              Listas
+            </a>
+          </li>
+
+          <li>
+            <a id="campaingsli" [routerLink]="['/campaings']">
+              <i class="fa fa-envelope"></i>
+              Campañas
+            </a>
+          </li>
+
+          <li>
+            <a id="statsli" [routerLink]="['/stats']">
+              <i class="fa fa-bar-chart"></i>
+              Estadísticas
+            </a>
+          </li>
+
+          <li>
+            <a id="smsli" [routerLink]="['/sms']">
+              <i class="fa fa-newspaper-o"></i>
+              Smart SMS
+            </a>
+          </li>
+
+          <li>
+            <a id="emailtransactional li" [routerLink]="['/designer']">
+              <i class="fa fa-send"></i>
+              Email Transaccional
+            </a>
+          </li>
+
+          <li>
+            <a id="administration" (click)="anchorClicked($event)">
+              <i class="fa fa-desktop"></i>
+              Administración
+              <span id="uielementschevron" class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu">
+              <li>
+                <a [routerLink]="['/users']">
+                  Users
+                </a>
+              </li>
+            </ul>
+          </li>
+          </ul>
+        </div>
+
+    </div>
+    <!-- /sidebar menu -->
+  </div>
+</div>

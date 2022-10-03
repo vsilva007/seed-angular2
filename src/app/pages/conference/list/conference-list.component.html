@@ -1,0 +1,2 @@
+<!--<page-header [title]="'Conferences'" [actionButton]="{label: 'Add Conference', route: '/contactList/' + peopleId + '/conference/new'}"></page-header>-->
+<basic-table [settings]="getSettings()" [source]="getConferences()" (deletedConfirmed)="deleteConfirmed($event)"></basic-table>

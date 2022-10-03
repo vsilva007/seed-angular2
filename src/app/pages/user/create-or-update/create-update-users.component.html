@@ -1,0 +1,61 @@
+<page-header [title]="'Create new user'" *ngIf="actionToPerform == 'create'"></page-header>
+<page-header [title]="'Update user'" *ngIf="actionToPerform == 'update'"></page-header>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2> User </h2>
+        <ul class="nav navbar-right panel_toolbox"></ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div data-parsley-validate class="form-horizontal form-label-left">
+          <form [formGroup]="formUser" (ngSubmit)="submitUserForm()">
+            <div class="form-group" style="margin: 0 0 20px;">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="first-name" type="text" style="margin: 0;" class="form-control" formControlName="name" placeholder="Name" [ngClass]="{'parsley-error': errors.name.error}" />
+                <span class="help-error-block" [hidden]="errors.name.error">{{errors.name.errorTag}}</span>
+              </div>
+            </div>
+            <div class="form-group" style="margin: 0 0 20px;">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="last-name" type="text" style="margin: 0;" class="form-control" formControlName="surnames" placeholder="Surnames" [ngClass]="{'parsley-error': errors.surnames.error}" />
+                <span class="help-error-block" [hidden]="errors.surnames.error">{{errors.surnames.errorTag}}</span>
+              </div>
+            </div>
+            <div class="form-group" style="margin: 0 0 20px;">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="email" type="text" style="margin: 0;" class="form-control" formControlName="email" placeholder="Email" [ngClass]="{'parsley-error': errors.email.error}" />
+                <span class="help-error-block" [hidden]="errors.email.error">{{errors.email.errorTag}}</span>
+              </div>
+            </div>
+            <div class="form-group" style="margin: 0 0 20px;" *ngIf="actionToPerform == 'create'">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="password" type="password" style="margin: 0;" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{'parsley-error': errors.password.error}" />
+                <span class="help-error-block" [hidden]="errors.password.error">{{errors.password.errorTag}}</span>
+              </div>
+            </div>
+            <server-exception [error]="serverError" *ngIf="serverError"></server-exception>
+            <div class="ln_solid"></div>
+            <div class="form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <button type="submit" class="btn btn-default submit" *ngIf="actionToPerform == 'create'">Add user</button>
+                <button type="submit" class="btn btn-default submit" *ngIf="actionToPerform == 'update'">Update user</button>
+                <button type="button" class="btn btn-primary submit" *ngIf="actionToPerform == 'update'" (click)="resetUpdateForm()">Reset</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

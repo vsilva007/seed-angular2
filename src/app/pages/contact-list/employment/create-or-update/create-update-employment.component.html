@@ -1,0 +1,82 @@
+<page-header [title]="'Create new employment'" *ngIf="actionToPerform == 'create'"></page-header>
+<page-header [title]="'Update employment'" *ngIf="actionToPerform == 'update'"></page-header>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Añadir contacto</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <br />
+        <form class="form-horizontal form-label-left" [formGroup]="formGroup" (ngSubmit)="submitFormGroup()">
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Nombre</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input formControlName="name" type="text" class="form-control" placeholder="" [ngClass]="{'parsley-error': formGroup.controls.name.errors?.required && errors.name.error}">
+              <span class="help-error-block" *ngIf="formGroup.controls.name.errors?.required && errors.name.error">{{errors.name.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Apellidos</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input formControlName="surnames" type="text" class="form-control" placeholder="" [ngClass]="{'parsley-error': formGroup.controls.surnames.errors?.required && errors.surnames.error}">
+              <span class="help-error-block" *ngIf="formGroup.controls.surnames.errors?.required && errors.surnames.error">{{errors.surnames.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input formControlName="email" type="text" class="form-control" placeholder="" [ngClass]="{'parsley-error': formGroup.controls.email.errors?.required && errors.email.error}">
+              <span class="help-error-block" *ngIf="formGroup.controls.email.errors?.required && errors.email.error">{{errors.email.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Teléfono</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input formControlName="phoneNumber" type="text" class="form-control" placeholder="" [ngClass]="{'parsley-error': formGroup.controls.phoneNumber.errors?.required && errors.phoneNumber.error}">
+              <span class="help-error-block" *ngIf="formGroup.controls.phoneNumber.errors?.required && errors.phoneNumber.error">{{errors.phoneNumber.errorTag}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ng2-datepicker [options]="pickerOptions" [inputEvents]="pickerEvent.start" formControlName="date"></ng2-datepicker>
+            </div>
+          </div>
+
+
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Activo</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ui-switch formControlName="active"></ui-switch>
+              <span class="help-error-block" *ngIf="formGroup.controls.active.errors?.required && errors.active.error">{{errors.active.errorTag}}</span>
+            </div>
+          </div>
+
+
+
+          <div class="ln_solid"></div>
+
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+              <button type="button" class="btn btn-primary submit" *ngIf="actionToPerform == 'update'" (click)="resetUpdateForm()">Reset</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'create'">Añadir contacto</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'update'">Actualizar contacto</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,188 @@
+<page-header [title]="'Crear nueva campaña'" *ngIf="actionToPerform == 'create'"></page-header>
+<page-header [title]="'Actualizar campaña'" *ngIf="actionToPerform == 'update'"></page-header>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+
+    <div class="x_panel">
+
+      <div data-parsley-validate class="form-horizontal form-label-left">
+        <form [formGroup]="formGroup" (ngSubmit)="submitFormGroup()">
+
+          <div class="x_title">
+            <h3>Información básica</h3>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="row">
+              <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                    <upload-image [imgType]="'logo'" [urlImg]="formGroup.controls.logo.value" (onFinish)="updatedImage($event)"></upload-image>
+              </div>
+
+              <div class="col-md-9 col-sm-9 col-xs-12 form-group has-feedback">
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                  <label>Nueva Campaña</label>
+                  <input type="text" class="form-control has-feedback-left" id="abbreviation-name"  formControlName="abbreviationName" placeholder="Escribe un nombre para tu nueva campaña" [ngClass]="{'parsley-error': formGroup.controls.abbreviationName.errors?.required && errors.abbreviationName.error}">
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                  <span class="help-error-block" *ngIf="formGroup.controls.abbreviationName.errors?.required && errors.abbreviationName.error">{{errors.abbreviationName.errorTag}}</span>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                  <label>Etiquetas relacionadas</label>
+                  <tag-input formControlName="legalName" theme='square-custom' [placeholder]="'+ nueva etiqueta'" [secondaryPlaceholder]="'Encuentra tu campaña'" [ngClass]="{'error-tags': formGroup.controls.legalName.errors?.required && errors.legalName.error}">
+                  </tag-input>
+                  <span class="help-error-block" *ngIf="formGroup.controls.legalName.errors?.required && errors.legalName.error">{{errors.legalName.errorTag}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+            <div class="clearfix"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label>Descripción</label>
+              <textarea id="description" formControlName="description" placeholder="Descripción" class="form-control" style="height: 100px;" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="1999"
+                        data-parsley-minlength-message="¡Ánimo! solo necesitas 20 caracteres..." data-parsley-validation-threshold="10">
+              </textarea>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+              <label>Target de la campaña</label>
+              <ng-select #currentIndustries [options]="industries"
+                         [multiple]="false"
+                         placeholder="Target"
+                         formControlName="industry"
+                         [allowClear]="true"
+                         (selected)="onSelectedIndustry($event)"
+                         (deselected)="onDeselectIndustry($event)">
+              </ng-select>
+            </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+              <label>Responsable de la campaña</label>
+              <ng-select #currentEmployeesSelect [options]="currentEmployees"
+                         [multiple]="false"
+                         placeholder="Empleado responsable"
+                         formControlName="currentEmployees"
+                         [allowClear]="true">
+              </ng-select>
+            </div>
+              <!--{{formGroup.controls.geographyOfOperations.value}}-->
+            <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+              <label>Geografía de operaciones</label>
+              <ng-select #GeoSelect [options]="getGeographyOfOperations() | enumKeysCustom"
+                         [multiple]="false"
+                         placeholder="En que ámbito se ejecuta?"
+                         formControlName="geographyOfOperations"
+                         [allowClear]="true">
+              </ng-select>
+            </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
+              <label>Canales activos</label>
+              <custom-multiselect-dropdown [settings]="mySettings" [options]="marketOptions" formControlName="activeMarkets"></custom-multiselect-dropdown>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+              <label>Etiquetas de Industria</label>
+              <tag-input [readonly]="formGroup.controls['industry'].value == null || formGroup.controls['industry'].value.length == 0" [identifyBy]="'id'" [displayBy]="'value'"
+                         formControlName="industryTags"  theme='custom' [ngClass]="{'custom-disabled': formGroup.controls['industry'].value == null || formGroup.controls['industry'].value.length == 0}"
+                         [onlyFromAutocomplete]="true" [placeholder]="'+ tag'" [secondaryPlaceholder]="'Industry Tags'">
+                <tag-input-dropdown [identifyBy]="'id'" [displayBy]="'value'"
+                                    [autocompleteItems]="industryTag">
+                </tag-input-dropdown>
+              </tag-input>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+              <label>Dominios de la campaña</label>
+              <tag-input formControlName="corporateEmailDomains" theme='custom' [transform]="transform" [placeholder]="'son los dominios en donde se hospeda la campaña, por ejemplo... justdigital.com'" [secondaryPlaceholder]="'domain.com'">
+              </tag-input>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+              <label>Slogan</label>
+              <input type="text" class="form-control has-feedback-left" id="strapline" formControlName="strapline" placeholder="Strapline">
+              <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+              <label>Número de wrappers</label>
+              <input type="number" class="form-control has-feedback-left" id="founded" formControlName="founded" placeholder="Year Founded" [ngClass]="{'parsley-error': formGroup.controls.founded.errors?.required && errors.founded.error}">
+              <span class="fa fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+              <span class="help-error-block" *ngIf="formGroup.controls.founded.errors?.required">{{errors.founded.errorTag}}</span>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+              <label>Landing Page de la campaña</label>
+              <input type="text" class="form-control  has-feedback-left" id="website" formControlName="website" placeholder="Refuerza tu campaña con una página de captación" [ngClass]="{'parsley-error': formGroup.controls.website.errors?.url && errors.website.error}">
+              <span class="fa fa-internet-explorer form-control-feedback left" aria-hidden="true"></span>
+              <span class="help-error-block" *ngIf="formGroup.controls.website.errors?.url && errors.website.error">{{errors.website.label}} debe ser una dirección válida.</span>
+            </div>
+
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                <label>¿ Es una campaña de Test?</label>
+                <ui-switch formControlName="serviceProvider"></ui-switch>
+                <label>Inicia una campaña cuando quieras lanzar una campaña de prueba para su validación. Estas campañas se auto-clasificaran como test y no se mostrarán en las comparativas de las estadísticas.</label>
+              </div>
+          </div>
+          </div>
+          <div class="x_title">
+            <h2>Enlaces sociales de la campaña</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+              <label>LinkedIn</label>
+              <input type="text" class="form-control has-feedback-left" id="linkedin"  formControlName="linkedInLink" placeholder="www.linkedin.com/" [ngClass]="{'parsley-error': formGroup.controls.linkedInLink.errors?.url && errors.linkedInLink.error}">
+              <span class="fa fa-linkedin form-control-feedback left" aria-hidden="true"></span>
+              <span class="help-error-block" *ngIf="formGroup.controls.linkedInLink.errors?.url && errors.linkedInLink.error">{{errors.linkedInLink.label}} debe ser una dirección válida.</span>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+              <label>Facebook</label>
+              <input type="text" class="form-control  has-feedback-left" id="facebook-link" formControlName="facebookLink" placeholder="www.facebook.com/" [ngClass]="{'parsley-error': formGroup.controls.facebookLink.errors?.url && errors.facebookLink.error}">
+              <span class="fa fa-facebook form-control-feedback left" aria-hidden="true"></span>
+              <span class="help-error-block" *ngIf="formGroup.controls.facebookLink.errors?.url && errors.facebookLink.error">{{errors.facebookLink.label}} debe ser una dirección válida.</span>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+              <label>Twitter</label>
+              <input type="text" class="form-control has-feedback-left" id="twitter-link"  formControlName="twitterLink" placeholder="www.twitter.com/" [ngClass]="{'parsley-error': formGroup.controls.twitterLink.errors?.url && errors.twitterLink.error}">
+              <span class="fa fa-twitter form-control-feedback left" aria-hidden="true"></span>
+              <span class="help-error-block" *ngIf="formGroup.controls.twitterLink.errors?.url && errors.twitterLink.error">{{errors.twitterLink.label}} debe ser una dirección válida.</span>
+            </div>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <server-exception [error]="serverError" *ngIf="serverError"></server-exception>
+
+          <br>
+
+          <div class="form-group">
+            <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+              <button type="button" class="btn btn-primary submit" *ngIf="actionToPerform == 'update'" (click)="resetUpdateForm()">Reset</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'create'">Crear campaña</button>
+              <button type="submit" class="btn btn-success submit" *ngIf="actionToPerform == 'update'">Actualizar campaña</button>
+            </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!--<page-header [title]="'People'" [actionButton]="{label: 'Add People', route: '/companies/contactList'}"></page-header>-->
+    <!--<basic-table [settings]="settingsPeople" [source]="contactList" (deletedConfirmed)="deleteCompany($event)"></basic-table>-->
+
+    <!--<page-header *ngIf="actionToPerform == 'update'" [title]="'Office'" [actionButton]="{label: 'Add Office', route: '/companies/'+currentId+'/office'}"></page-header>-->
+    <!--<basic-table *ngIf="actionToPerform == 'update'" [settings]="officeData.getSettings()" [source]="officeData.get()" (deletedConfirmed)="officeData.delete(currentId, $event)"></basic-table>-->
+
+    <office-list *ngIf="actionToPerform == 'update'" [companyId]="currentId"></office-list>
+    <page-header *ngIf="actionToPerform == 'update'" id="peopleList" [title]="'People'" [actionButton]="{label: 'Add People', action: true}" (onAction)="showAddPeopleModal()"></page-header>
+    <people-list *ngIf="actionToPerform == 'update'" [companyId]="currentId" [hasTitle]="false" [inputEvents]="peopleListEvent"></people-list>
+    <add-people-modal #addPeopleModal [companyId]="currentId" (correctUpdated)="reloadPeople($event)" (outputEvent)="reloadSubList($event)"></add-people-modal>
+  </div>
+</div>
